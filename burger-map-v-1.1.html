@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+  #map-circle {
+    width: 100%;
+    max-width: 600px;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  #map-circle > #map {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+  }
+</style>
+</head>
+<body>
+<div id="map-circle">
+  <div id="map"></div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIALswu2DSe7OtU_joEq5iV146x5xp4fQ"></script>
+<script>
+  function initMap() {
+    const center = { lat: 59.92, lng: 10.75 };
+    const map = new google.maps.Map(document.getElementById('map'), {
+      center,
+      zoom: 11,
+      styles: [ /* Dark/minimal style snippet */ 
+        { elementType: 'geometry', stylers: [ { color: '#242f3e' } ] },
+        { elementType: 'labels.text.stroke', stylers: [ { color: '#242f3e' } ] },
+        { elementType: 'labels.text.fill', stylers: [ { color: '#746855' } ] },
+        /* Add further stylers to match your site palette */
+      ],
+      disableDefaultUI: true
+    });
+
+    const svgIcon = {
+      url: 'download.svg',
+      scaledSize: new google.maps.Size(40, 40)
+    };
+
+    const locations = [
+      { position: { lat: 59.923729, lng: 10.725484 }, url: 'https://jonk75.wixsite.com/my-site-1/colosseum' },
+      { position: { lat: 59.930147, lng: 10.710022 }, url: 'https://jonk75.wixsite.com/my-site-1/roa' },
+      { position: { lat: 59.961473, lng: 10.731323 }, url: 'https://jonk75.wixsite.com/my-site-1/frysja' },
+      { position: { lat: 59.907502, lng: 10.757933 }, url: 'https://jonk75.wixsite.com/my-site-1/gronland' },
+      { position: { lat: 59.823660, lng: 10.900577 }, url: 'https://jonk75.wixsite.com/my-site-1/holmlia' },
+      { position: { lat: 59.903019, lng: 10.981207 }, url: 'https://jonk75.wixsite.com/my-site-1/triaden' },
+      { position: { lat: 59.923000, lng: 10.750000 }, url: 'https://jonk75.wixsite.com/my-site-1/fredensborg' }
+    ];
+
+    locations.forEach(loc => {
+      const marker = new google.maps.Marker({
+        position: loc.position,
+        map,
+        icon: svgIcon
+      });
+      marker.addListener('click', () => {
+        window.open(loc.url, '_blank');
+      });
+    });
+  }
+
+  window.addEventListener('load', initMap);
+</script>
+</body>
+</html>
